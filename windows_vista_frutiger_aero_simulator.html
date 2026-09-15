@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full select-none overflow-hidden">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows Vista Ultimate - Purple Frutiger Aero Edition</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome 6 for Vista Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+    * {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Windows Vista Purple Aero Glass Color Tokens */
+    :root {
+      --aero-tint: rgba(85, 20, 140, 0.52);
+      --aero-active-tint: rgba(115, 30, 185, 0.62);
+      --aero-border: rgba(255, 255, 255, 0.45);
+      --aero-glow: rgba(210, 130, 255, 0.55);
+      --aero-blur: 20px;
+    }
+
+    /* Vista Aero Translucent Glass Frame */
+    .aero-window {
+      background: var(--aero-tint);
+      backdrop-filter: blur(var(--aero-blur)) saturate(190%);
+      -webkit-backdrop-filter: blur(var(--aero-blur)) saturate(190%);
+      border: 1px solid var(--aero-border);
+      box-shadow: 
+        0 18px 45px rgba(25, 5, 45, 0.55),
+        0 0 20px var(--aero-glow),
+        inset 0 1px 2px rgba(255, 255, 255, 0.9),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.3);
+      border-radius: 8px 8px 0px 0px;
+      transition: box-shadow 0.2s ease, background 0.25s ease;
+    }
+
+    .aero-window.inactive {
+      background: rgba(80, 70, 110, 0.35) !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    }
+
+    /* Vista Title Bar Sheen Overlay */
+    .aero-titlebar {
+      background: linear-gradient(180deg, 
+        rgba(255, 255, 255, 0.75) 0%, 
+        rgba(255, 255, 255, 0.25) 42%, 
+        rgba(40, 10, 65, 0.2) 48%, 
+        rgba(20, 5, 35, 0.45) 100%);
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 0, 0, 0.9);
+      position: relative;
+    }
+
+    .aero-titlebar::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 50%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 80%);
+      pointer-events: none;
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px;
+    }
+
+    /* Authentic Vista Window Buttons */
+    .vista-btn {
+      position: relative;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 3px rgba(0,0,0,0.4);
+      border: 1px solid rgba(0,0,0,0.5);
+    }
+
+    .vista-btn-close {
+      background: linear-gradient(180deg, #f87d73 0%, #d83426 50%, #ad160a 51%, #e64233 100%);
+    }
+    .vista-btn-close:hover {
+      background: linear-gradient(180deg, #ffa399 0%, #ee4738 50%, #c41e12 51%, #ff5747 100%);
+      box-shadow: 0 0 12px rgba(255, 50, 40, 0.9);
+    }
+
+    .vista-btn-minmax {
+      background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(220,200,245,0.45) 50%, rgba(140,110,180,0.5) 51%, rgba(190,160,230,0.75) 100%);
+    }
+    .vista-btn-minmax:hover {
+      background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(240,220,255,0.7) 50%, rgba(170,130,220,0.8) 51%, rgba(210,180,255,0.95) 100%);
+      box-shadow: 0 0 10px rgba(200, 140, 255, 0.85);
+    }
+
+    /* Protruding Windows Vista Purple Start Orb */
+    .start-orb-wrapper {
+      position: relative;
+      top: -8px; /* Protrudes above the taskbar top edge */
+      z-index: 50;
+    }
+    .start-orb {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 25%, #ffffff 0%, rgba(255,255,255,0.85) 18%, rgba(135,45,215,0.9) 45%, rgba(60,10,100,0.98) 85%, #18032c 100%);
+      box-shadow: 
+        0 0 0 2px rgba(255, 255, 255, 0.5),
+        0 4px 12px rgba(0, 0, 0, 0.7),
+        inset 0 -4px 8px rgba(0, 0, 0, 0.6),
+        inset 0 4px 8px rgba(255, 255, 255, 0.95);
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .start-orb:hover {
+      box-shadow: 
+        0 0 0 2px rgba(255, 255, 255, 0.9),
+        0 0 20px rgba(200, 100, 255, 0.95),
+        inset 0 -4px 8px rgba(0, 0, 0, 0.5),
+        inset 0 5px 10px rgba(255, 255, 255, 1);
+      transform: scale(1.06);
+    }
+    .start-orb:active {
+      transform: scale(0.96);
+    }
+
+    /* Taskbar Glass Styling */
+    .vista-taskbar {
+      background: linear-gradient(180deg, 
+        rgba(35, 12, 55, 0.65) 0%, 
+        rgba(15, 5, 28, 0.85) 10%, 
+        rgba(8, 2, 18, 0.92) 50%, 
+        rgba(25, 8, 42, 0.8) 100%);
+      backdrop-filter: blur(25px) saturate(190%);
+      -webkit-backdrop-filter: blur(25px) saturate(190%);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 -4px 16px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Sidebar Glass */
+    .vista-sidebar {
+      background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(30, 8, 50, 0.25) 35%, rgba(18, 4, 32, 0.5) 100%);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.18);
+    }
+
+    .gadget-card {
+      background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.38) 0%, rgba(235,210,255,0.15) 70%, rgba(130,60,190,0.22) 100%);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 20px rgba(10, 2, 20, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.75);
+      border-radius: 14px;
+    }
+
+    /* Start Menu Glass */
+    .vista-start-menu {
+      background: rgba(18, 6, 30, 0.92);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.65);
+      border-radius: 9px 9px 0 0;
+    }
+
+    /* Flip 3D Perspective CSS */
+    .flip3d-container {
+      perspective: 1200px;
+      perspective-origin: 50% 50%;
+    }
+    .flip3d-card {
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+    }
+
+    /* Drag Selection Box */
+    #selection-box {
+      border: 1px solid rgba(200, 130, 255, 0.8);
+      background: rgba(160, 80, 240, 0.25);
+      position: absolute;
+      pointer-events: none;
+      display: none;
+      z-index: 15;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(220, 200, 240, 0.35);
+      border-radius: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #d3b2e4 0%, #996bcd 50%, #7646b8 51%, #b68dea 100%);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      border-radius: 6px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #e4cdf2 0%, #b383e6 50%, #8b5bd3 51%, #cfaeae 100%);
+    }
+
+    .frutiger-text-glow {
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.95), 0 0 16px rgba(180, 80, 255, 0.7);
+    }
+  </style>
+</head>
+
+<body class="h-screen w-screen overflow-hidden bg-slate-950 text-slate-800 relative select-none">
+
+  <!-- HTML5 Canvas Animated Frutiger Aero Purple Wallpaper -->
+  <canvas id="wallpaper-canvas" class="absolute inset-0 w-full h-full z-0 pointer-events-none"></canvas>
+
+  <!-- Desktop Icons Grid -->
+  <div id="desktop-grid" class="absolute top-4 left-4 bottom-14 right-72 p-2 grid grid-flow-col grid-rows-6 gap-4 auto-cols-max z-10 pointer-events-auto">
+    
+    <!-- Computer Icon -->
+    <div onclick="System.openApp('explorer')" class="desktop-icon group flex flex-col items-center justify-center w-24 h-24 p-2 rounded-lg hover:bg-white/25 hover:border hover:border-white/40 cursor-pointer transition-all">
+      <div class="w-12 h-12 flex items-center justify-center text-purple-200 group-hover:scale-110 transition-transform drop-shadow-[0_4px_8px_rgba(0,0,0,0.7)]">
+        <i class="fa-solid fa-desktop text-4xl text-gradient bg-gradient-to-b from-purple-200 via-purple-400 to-indigo-600 bg-clip-text"></i>
+      </div>
+      <span class="mt-1 text-xs text-white text-center font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">Computer</span>
+    </div>
+
+    <!-- Internet Explorer Icon -->
+    <div onclick="System.openApp('ie7')" class="desktop-icon group flex flex-col items-center justify-center w-24 h-24 p-2 rounded-lg hover:bg-white/25 hover:border hover:border-white/40 cursor-pointer transition-all">
+      <div class="w-12 h-12 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform drop-shadow-[0_4px_8px_rgba(0,0,0,0.7)]">
+        <i class="fa-e text-4xl font-bold text-sky-400 relative">
+          <span class="absolute -inset-1 bg-yellow-400/80 rounded-full blur-[2px] -z-10 h-3 top-4 rotate-[30deg]"></span>
+        </i>
+      </div>
+      <span class="mt-1 text-xs text-white text-center font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">Internet Explorer</span>
+    </div>
+
+    <!-- Windows Media Player 11 Icon -->
+    <div onclick="System.openApp('wmp11')" class="desktop-icon group flex flex-col items-center justify-center w-24 h-24 p-2 rounded-lg hover:bg-white/25 hover:border hover:border-white/40 cursor-pointer transition-all">
+      <div class="w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform drop-shadow-[0_4px_8px_rgba(0,0,0,0.7)]">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 via-fuchsia-600 to-indigo-800 p-0.5 border border-white/70 flex items-center justify-center shadow-lg">
+          <i class="fa-solid fa-play text-white text-base ml-0.5"></i>
+        </div>
+      </div>
+      <span class="mt-1 text-xs text-white text-center font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">Media Player</span>
+    </div>
+
+    <!-- Minesweeper Icon -->
+    <div onclick="System.openApp('minesweeper')" class="desktop-icon group flex flex-col items-center justify-center w-24 h-24 p-2 rounded-lg hover:bg-white/25 hover:border hover:border-white/40 cursor-pointer transition-all">
+      <div class="w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform drop-shadow-[0_4px_8px_rgba(0,0,0,0.7)]">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-400 to-purple-800 border border-white/60 flex items-center justify-center">
+          <i class="fa-solid fa-land-mine-on text-2xl text-amber-300"></i>
+        </div>
+      </div>
+      <span class="mt-1 text-xs text-white text-center font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">Minesweeper</span>
+    </div>
+
+    <!-- Notepad Icon -->
+    <div onclick="System.openApp('notepad')" class="desktop-icon group flex flex-col items-center justify-center w-24 h-24 p-2 rounded-lg hover:bg-white/25 hover:border hover:border-white/40 cursor-pointer transition-all">
+      <div class="w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform drop-shadow-[0_4px_8px_rgba(0,0,0,0.7)]">
+        <i class="fa-solid fa-note-sticky text-4xl text-purple-200"></i>
+      </div>
+      <span class="mt-1 text-xs text-white text-center font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">Notepad</span>
+    </div>
+
+    <!-- Calculator Icon -->
+    <div onclick="System.openApp('calc')" class="desktop-icon group flex flex-col items-center justify-center w-24 h-24 p-2 rounded-lg hover:bg-white/25 hover:border hover:border-white/40 cursor-pointer transition-all">
+      <div class="w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform drop-shadow-[0_4px_8px_rgba(0,0,0,0.7)]">
+        <i class="fa-solid fa-calculator text-4xl text-fuchsia-300"></i>
+      </div>
+      <span class="mt-1 text-xs text-white text-center font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">Calculator</span>
+    </div>
+
+    <!-- Personalization Icon -->
+    <div onclick="System.openApp('personalize')" class="desktop-icon group flex flex-col items-center justify-center w-24 h-24 p-2 rounded-lg hover:bg-white/25 hover:border hover:border-white/40 cursor-pointer transition-all">
+      <div class="w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform drop-shadow-[0_4px_8px_rgba(0,0,0,0.7)]">
+        <i class="fa-solid fa-palette text-4xl text-pink-300"></i>
+      </div>
+      <span class="mt-1 text-xs text-white text-center font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">Personalize</span>
+    </div>
+
+    <!-- Welcome Center Icon -->
+    <div onclick="System.openApp('welcome')" class="desktop-icon group flex flex-col items-center justify-center w-24 h-24 p-2 rounded-lg hover:bg-white/25 hover:border hover:border-white/40 cursor-pointer transition-all">
+      <div class="w-12 h-12 flex items-center justify-center group-hover:scale-110 transition-transform drop-shadow-[0_4px_8px_rgba(0,0,0,0.7)]">
+        <i class="fa-solid fa-circle-info text-4xl text-violet-300"></i>
+      </div>
+      <span class="mt-1 text-xs text-white text-center font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">Welcome Center</span>
+    </div>
+
+  </div>
+
+  <!-- Marquee Selection Box -->
+  <div id="selection-box"></div>
+
+  <!-- Windows Workspace Container -->
+  <div id="windows-container" class="absolute inset-0 bottom-11 z-20 pointer-events-none">
+    
+    <!-- 1. EXPLORER / COMPUTER WINDOW -->
+    <div id="win-explorer" class="aero-window absolute w-[780px] h-[510px] top-10 left-16 flex flex-col pointer-events-auto hidden shadow-2xl" onclick="System.focusWindow('win-explorer')">
+      <!-- Titlebar -->
+      <div class="aero-titlebar h-8 px-3 flex items-center justify-between cursor-move" onmousedown="System.startDrag(event, 'win-explorer')">
+        <div class="flex items-center space-x-2 text-white font-semibold text-xs tracking-wide">
+          <i class="fa-solid fa-desktop text-purple-300"></i>
+          <span>Computer</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <button onclick="System.minimizeWindow('win-explorer')" class="vista-btn vista-btn-minmax w-6 h-5 rounded flex items-center justify-center text-slate-800 text-xs font-bold">─</button>
+          <button onclick="System.maximizeWindow('win-explorer')" class="vista-btn vista-btn-minmax w-6 h-5 rounded flex items-center justify-center text-slate-800 text-xs">□</button>
+          <button onclick="System.closeWindow('win-explorer')" class="vista-btn vista-btn-close w-11 h-5 rounded flex items-center justify-center text-white text-xs">✕</button>
+        </div>
+      </div>
+      <!-- Vista Toolbar / Glass Breadcrumb Bar -->
+      <div class="bg-gradient-to-b from-purple-50 via-slate-100 to-slate-200 border-b border-slate-300 p-2 flex items-center space-x-2">
+        <div class="flex space-x-1">
+          <button class="w-7 h-7 rounded-full border border-slate-300 bg-gradient-to-b from-white to-slate-200 flex items-center justify-center text-slate-600 shadow-sm hover:bg-slate-50"><i class="fa-solid fa-arrow-left text-xs"></i></button>
+          <button class="w-7 h-7 rounded-full border border-slate-300 bg-gradient-to-b from-white to-slate-200 flex items-center justify-center text-slate-400 cursor-not-allowed shadow-sm"><i class="fa-solid fa-arrow-right text-xs"></i></button>
+        </div>
+        <!-- Breadcrumbs -->
+        <div class="flex-1 h-7 bg-white/90 border border-purple-300 rounded px-2 flex items-center text-xs text-slate-700 shadow-inner space-x-1">
+          <i class="fa-solid fa-desktop text-purple-600"></i>
+          <span class="text-slate-400">►</span>
+          <span class="hover:bg-purple-100 px-1 rounded cursor-pointer">Computer</span>
+          <span class="text-slate-400">►</span>
+          <span class="hover:bg-purple-100 px-1 rounded cursor-pointer font-medium">Local Disk (C:)</span>
+        </div>
+        <!-- Search box -->
+        <div class="w-48 h-7 bg-white/90 border border-slate-300 rounded px-2 flex items-center text-xs text-slate-400 shadow-inner">
+          <i class="fa-solid fa-magnifying-glass mr-1 text-purple-400"></i>
+          <input type="text" placeholder="Search Computer" class="bg-transparent outline-none w-full text-slate-700 placeholder-slate-400">
+        </div>
+      </div>
+      <!-- Explorer Body -->
+      <div class="flex-1 bg-white/95 flex overflow-hidden">
+        <!-- Sidebar Navigation Tree -->
+        <div class="w-48 bg-purple-50/40 border-r border-purple-100 p-2 text-xs text-slate-700 space-y-3 overflow-y-auto">
+          <div>
+            <div class="font-bold text-purple-800/60 uppercase text-[10px] tracking-wider mb-1">Favorite Links</div>
+            <div class="space-y-1 pl-1">
+              <div class="flex items-center space-x-2 p-1 rounded hover:bg-purple-100 cursor-pointer"><i class="fa-solid fa-star text-amber-400"></i><span>Documents</span></div>
+              <div class="flex items-center space-x-2 p-1 rounded hover:bg-purple-100 cursor-pointer"><i class="fa-solid fa-image text-emerald-500"></i><span>Pictures</span></div>
+              <div class="flex items-center space-x-2 p-1 rounded hover:bg-purple-100 cursor-pointer"><i class="fa-solid fa-music text-purple-600"></i><span>Music</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="font-bold text-purple-800/60 uppercase text-[10px] tracking-wider mb-1">Folders</div>
+            <div class="space-y-1 pl-1">
+              <div class="flex items-center space-x-2 p-1 rounded hover:bg-purple-100 cursor-pointer"><i class="fa-solid fa-desktop text-purple-500"></i><span>Desktop</span></div>
+              <div class="flex items-center space-x-2 p-1 rounded hover:bg-purple-100 cursor-pointer font-semibold bg-purple-200/50"><i class="fa-solid fa-hard-drive text-slate-600"></i><span>Local Disk (C:)</span></div>
+            </div>
+          </div>
+        </div>
+        <!-- Main Explorer Content View -->
+        <div class="flex-1 p-4 overflow-y-auto">
+          <div class="text-xs font-bold text-purple-900 border-b border-purple-100 pb-1 mb-3">Hard Disk Drives (1)</div>
+          <!-- Drive Item -->
+          <div class="flex items-center space-x-3 p-2 rounded-lg hover:bg-purple-50 border border-transparent hover:border-purple-200 cursor-pointer w-72 mb-4">
+            <i class="fa-solid fa-hard-drive text-4xl text-purple-600 drop-shadow"></i>
+            <div class="flex-1">
+              <div class="text-xs font-bold text-slate-800">Local Disk (C:)</div>
+              <!-- Vista Purple Meter Bar -->
+              <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden border border-slate-300 my-1">
+                <div class="h-full bg-gradient-to-r from-purple-400 via-fuchsia-500 to-indigo-600 w-[68%]"></div>
+              </div>
+              <div class="text-[11px] text-slate-500">142 GB free of 450 GB</div>
+            </div>
+          </div>
+
+          <div class="text-xs font-bold text-purple-900 border-b border-purple-100 pb-1 mb-3">Folders & System Files</div>
+          <div class="grid grid-cols-3 gap-3">
+            <div class="flex items-center space-x-2 p-2 rounded hover:bg-purple-100 cursor-pointer border border-transparent hover:border-purple-300">
+              <i class="fa-solid fa-folder text-2xl text-amber-400"></i>
+              <span class="text-xs font-medium">Program Files</span>
+            </div>
+            <div class="flex items-center space-x-2 p-2 rounded hover:bg-purple-100 cursor-pointer border border-transparent hover:border-purple-300">
+              <i class="fa-solid fa-folder text-2xl text-amber-400"></i>
+              <span class="text-xs font-medium">Windows</span>
+            </div>
+            <div class="flex items-center space-x-2 p-2 rounded hover:bg-purple-100 cursor-pointer border border-transparent hover:border-purple-300">
+              <i class="fa-solid fa-folder text-2xl text-amber-400"></i>
+              <span class="text-xs font-medium">Users</span>
+            </div>
+            <div class="flex items-center space-x-2 p-2 rounded hover:bg-purple-100 cursor-pointer border border-transparent hover:border-purple-300">
+              <i class="fa-solid fa-file-lines text-2xl text-purple-400"></i>
+              <span class="text-xs font-medium">boot.ini</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Vista Status Bar -->
+      <div class="bg-slate-100 border-t border-slate-300 h-6 px-3 flex items-center justify-between text-[11px] text-slate-600">
+        <span>4 items</span>
+        <span>Computer Status: Ready</span>
+      </div>
+    </div>
+
+    <!-- 2. INTERNET EXPLORER 7 WINDOW -->
+    <div id="win-ie7" class="aero-window absolute w-[840px] h-[550px] top-6 left-32 flex flex-col pointer-events-auto hidden shadow-2xl" onclick="System.focusWindow('win-ie7')">
+      <!-- Titlebar -->
+      <div class="aero-titlebar h-8 px-3 flex items-center justify-between cursor-move" onmousedown="System.startDrag(event, 'win-ie7')">
+        <div class="flex items-center space-x-2 text-white font-semibold text-xs">
+          <i class="fa-e text-sky-300 font-bold"></i>
+          <span>Windows Internet Explorer 7</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <button onclick="System.minimizeWindow('win-ie7')" class="vista-btn vista-btn-minmax w-6 h-5 rounded flex items-center justify-center text-slate-800 text-xs font-bold">─</button>
+          <button onclick="System.maximizeWindow('win-ie7')" class="vista-btn vista-btn-minmax w-6 h-5 rounded flex items-center justify-center text-slate-800 text-xs">□</button>
+          <button onclick="System.closeWindow('win-ie7')" class="vista-btn vista-btn-close w-11 h-5 rounded flex items-center justify-center text-white text-xs">✕</button>
+        </div>
+      </div>
+      <!-- IE7 Toolbar & Address Bar -->
+      <div class="bg-gradient-to-b from-purple-100 via-slate-100 to-slate-200 border-b border-slate-300 p-2 space-y-1">
+        <!-- Tabs Row -->
+        <div class="flex items-center space-x-1">
+          <div class="bg-white border-t-2 border-t-purple-600 border-x border-slate-300 rounded-t px-3 py-1 text-xs text-slate-800 font-semibold flex items-center space-x-2 shadow-sm">
+            <i class="fa-solid fa-globe text-purple-500"></i>
+            <span id="ie-tab-title">Frutiger Aero Purple Portal</span>
+            <span class="text-slate-400 hover:text-red-500 cursor-pointer ml-2">✕</span>
+          </div>
+          <button class="px-2 py-0.5 text-xs text-slate-500 hover:bg-slate-300/50 rounded">+</button>
+        </div>
+        <!-- Address & Search bar -->
+        <div class="flex items-center space-x-2">
+          <div class="flex space-x-1">
+            <button onclick="IE.goBack()" class="w-7 h-7 rounded border border-slate-300 bg-white flex items-center justify-center text-slate-600 shadow-sm"><i class="fa-solid fa-arrow-left text-xs"></i></button>
+            <button onclick="IE.reload()" class="w-7 h-7 rounded border border-slate-300 bg-white flex items-center justify-center text-slate-600 shadow-sm"><i class="fa-solid fa-rotate-right text-xs"></i></button>
+          </div>
+          <div class="flex-1 h-7 bg-white border border-purple-300 rounded px-2 flex items-center text-xs shadow-inner">
+            <i class="fa-solid fa-lock text-emerald-600 mr-2 text-[10px]"></i>
+            <input id="ie-address-input" type="text" value="http://www.purple-aero-network.com" class="w-full outline-none text-slate-700 bg-transparent">
+            <button onclick="IE.navigate()" class="text-purple-600 hover:text-purple-800 font-bold ml-1">Go</button>
+          </div>
+          <!-- Live Search Box -->
+          <div class="w-44 h-7 bg-white border border-slate-300 rounded px-2 flex items-center text-xs shadow-inner">
+            <input id="ie-search-input" type="text" placeholder="Live Search" class="w-full outline-none text-slate-700 bg-transparent">
+            <button onclick="IE.search()" class="text-purple-500"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+        </div>
+      </div>
+      <!-- Embedded Web Content -->
+      <div id="ie-content" class="flex-1 bg-gradient-to-br from-purple-50 via-fuchsia-50 to-indigo-100 p-6 overflow-y-auto">
+        <div class="max-w-2xl mx-auto bg-white/90 backdrop-blur rounded-xl border border-purple-200 p-6 shadow-lg space-y-4">
+          <div class="flex items-center justify-between border-b border-purple-200 pb-3">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-fuchsia-500 flex items-center justify-center text-white text-xl font-bold shadow">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </div>
+              <h1 class="text-xl font-bold text-slate-800 tracking-wide">Purple Frutiger Aero Hub</h1>
+            </div>
+            <span class="text-xs bg-purple-100 text-purple-800 px-2.5 py-1 rounded-full border border-purple-300">Edition 2007</span>
+          </div>
+
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Welcome to the <strong>Windows Vista Purple Aero Experience</strong>. Frutiger Aero aesthetics feature vibrant violet gradients, glossy transparent glass textures, skeuomorphic orb elements, and dynamic aurora wave light reflections.
+          </p>
+
+          <div class="grid grid-cols-2 gap-4 my-4">
+            <div onclick="IE.loadPreset('wiki')" class="p-3 bg-purple-50 border border-purple-200 rounded-lg hover:bg-purple-100 cursor-pointer transition">
+              <h3 class="font-bold text-purple-900 text-sm mb-1"><i class="fa-solid fa-book-open mr-1"></i> Aero Design Guide</h3>
+              <p class="text-xs text-slate-500">Learn about Desktop Window Manager (DWM) and translucent purple glass rendering.</p>
+            </div>
+            <div onclick="IE.loadPreset('news')" class="p-3 bg-fuchsia-50 border border-fuchsia-200 rounded-lg hover:bg-fuchsia-100 cursor-pointer transition">
+              <h3 class="font-bold text-fuchsia-900 text-sm mb-1"><i class="fa-solid fa-newspaper mr-1"></i> Tech News 2007</h3>
+              <p class="text-xs text-slate-500">Windows Vista releases worldwide with next-gen Aero graphics and Flip 3D.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. WINDOWS MEDIA PLAYER 11 -->
+    <div id="win-wmp11" class="aero-window absolute w-[740px] h-[500px] top-14 left-44 flex flex-col pointer-events-auto hidden shadow-2xl" onclick="System.focusWindow('win-wmp11')">
+      <!-- Titlebar -->
+      <div class="aero-titlebar h-8 px-3 flex items-center justify-between cursor-move" onmousedown="System.startDrag(event, 'win-wmp11')">
+        <div class="flex items-center space-x-2 text-white font-semibold text-xs">
+          <i class="fa-solid fa-play-circle text-purple-300"></i>
+          <span>Windows Media Player 11 - Purple Soundscapes</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <button onclick="System.minimizeWindow('win-wmp11')" class="vista-btn vista-btn-minmax w-6 h-5 rounded flex items-center justify-center text-slate-800 text-xs font-bold">─</button>
+          <button onclick="System.maximizeWindow('win-wmp11')" class="vista-btn vista-btn-minmax w-6 h-5 rounded flex items-center justify-center text-slate-800 text-xs">□</button>
+          <button onclick="System.closeWindow('win-wmp11')" class="vista-btn vista-btn-close w-11 h-5 rounded flex items-center justify-center text-white text-xs">✕</button>
+        </div>
+      </div>
+      <!-- Dark WMP Glass Body -->
+      <div class="flex-1 bg-slate-950 text-white flex flex-col">
+        <!-- Visualizer Canvas -->
+        <div class="relative flex-1 bg-gradient-to-b from-purple-950 via-slate-950 to-indigo-950 flex items-center justify-center overflow-hidden">
+          <canvas id="wmp-visualizer" class="absolute inset-0 w-full h-full opacity-85"></canvas>
+          <div class="relative z-10 text-center space-y-1">
+            <div id="wmp-track-title" class="text-xl font-bold text-purple-300 drop-shadow-[0_0_12px_rgba(200,100,255,0.9)]">Violet Aurora Ambient Synthesizer</div>
+            <div id="wmp-track-artist" class="text-xs text-purple-200/80">Windows Vista Soundscapes</div>
+          </div>
+        </div>
+
+        <!-- WMP Controls Bar -->
+        <div class="h-20 bg-gradient-to-b from-slate-900 to-black border-t border-purple-900/50 px-6 flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <button onclick="WMP.prevTrack()" class="text-purple-300 hover:text-white transition"><i class="fa-solid fa-backward-step text-lg"></i></button>
+            <button onclick="WMP.togglePlay()" id="wmp-play-btn" class="w-12 h-12 rounded-full bg-gradient-to-b from-purple-400 to-indigo-700 hover:from-purple-300 hover:to-indigo-600 border border-white/70 flex items-center justify-center shadow-[0_0_15px_rgba(180,80,255,0.7)]">
+              <i class="fa-solid fa-play text-white text-lg ml-0.5"></i>
+            </button>
+            <button onclick="WMP.nextTrack()" class="text-purple-300 hover:text-white transition"><i class="fa-solid fa-forward-step text-lg"></i></button>
+          </div>
+
+          <!-- Progress Scrubber -->
+          <div class="flex-1 mx-6 flex items-center space-x-2">
+            <span id="wmp-time-current" class="text-xs text-purple-200">0:00</span>
+            <input type="range" id="wmp-scrubber" min="0" max="100" value="0" class="flex-1 h-1.5 bg-purple-950 rounded-lg appearance-none cursor-pointer accent-purple-400">
+            <span id="wmp-time-total" class="text-xs text-purple-200">3:15</span>
+          </div>
+
+          <!-- Volume -->
+          <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-volume-high text-xs text-purple-300"></i>
+            <input type="range" id="wmp-volume" min="0" max="1" step="0.05" value="0.7" onchange="WMP.setVolume(this.value)" class="w-20 h-1 bg-purple-950 rounded-lg appearance-none cursor-pointer accent-purple-400">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. MINESWEEPER WINDOW -->
+    <div id="win-minesweeper" class="aero-window absolute w-[320px] h-[390px] top-12 left-96 flex flex-col pointer-events-auto hidden shadow-2xl" onclick="System.focusWindow('win-minesweeper')">
+      <!-- Titlebar -->
+      <div class="aero-titlebar h-8 px-3 flex items-center justify-between cursor-move" onmousedown="System.startDrag(event, 'win-minesweeper')">
+        <div class="flex items-center space-x-2 text-white font-semibold text-xs">
+          <i class="fa-solid fa-land-mine-on text-amber-300"></i>
+          <span>Minesweeper</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <button onclick="System.minimizeWindow('win-minesweeper')" class="vista-btn vista-btn-minmax w-6 h-5 rounded flex items-center justify-center text-slate-800 text-xs font-bold">─</button>
+          <button onclick="System.closeWindow('win-minesweeper')" class="vista-btn vista-btn-close w-11 h-5 rounded flex items-center justify-center text-white text-xs">✕</button>
+        </div>
+      </div>
+      <!-- Minesweeper Header Bar -->
+      <div class="bg-gradient-to-b from-purple-100 to-slate-200 p-2 border-b border-purple-200 flex justify-between items-center px-4">
+        <!-- Mine Counter -->
+        <div id="ms-mines-count" class="bg-black text-red-500 font-mono font-bold text-lg px-2 rounded border border-purple-400">010</div>
+        <!-- Face Button -->
+        <button onclick="Minesweeper.init()" id="ms-face-btn" class="w-8 h-8 rounded-full border border-purple-400 bg-gradient-to-b from-white to-purple-100 flex items-center justify-center shadow text-lg hover:scale-105">
+          🙂
+        </button>
+        <!-- Timer -->
+        <div id="ms-timer" class="bg-black text-red-500 font-mono font-bold text-lg px-2 rounded border border-purple-400">000</div>
+      </div>
+      <!-- Minesweeper Grid Canvas Container -->
+      <div class="flex-1 bg-slate-100 p-3 flex items-center justify-center">
+        <div id="ms-grid" class="grid grid-cols-9 gap-1 bg-purple-200 p-2 rounded-lg border border-purple-300 shadow-inner">
+          <!-- Dynamic 9x9 Mine Tiles -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. NOTEPAD WINDOW -->
+    <div id="win-notepad" class="aero-window absolute w-[520px] h-[360px] top-28 left-64 flex flex-col pointer-events-auto hidden shadow-2xl" onclick="System.focusWindow('win-notepad')">
+      <!-- Titlebar -->
+      <div class="aero-titlebar h-8 px-3 flex items-center justify-between cursor-move" onmousedown="System.startDrag(event, 'win-notepad')">
+        <div class="flex items-center space-x-2 text-white font-semibold text-xs">
+          <i class="fa-solid fa-note-sticky text-purple-200"></i>
+          <span>Untitled - Notepad</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <button onclick="System.minimizeWindow('win-notepad')" class="vista-btn vista-btn-minmax w-6 h-5 rounded flex items-center justify-center text-slate-800 text-xs font-bold">─</button>
+          <button onclick="System.maximizeWindow('win-notepad')" class="vista-btn vista-btn-minmax w-6 h-5 rounded flex items-center justify-center text-slate-800 text-xs">□</button>
+          <button onclick="System.closeWindow('win-notepad')" class="vista-btn vista-btn-close w-11 h-5 rounded flex items-center justify-center text-white text-xs">✕</button>
+        </div>
+      </div>
+      <div class="bg-purple-50/50 border-b border-purple-200 px-2 py-0.5 flex space-x-3 text-xs text-slate-700">
+        <span onclick="Notepad.newFile()" class="hover:bg-purple-200 px-1.5 py-0.5 rounded cursor-pointer">File</span>
+        <span onclick="Notepad.saveFile()" class="hover:bg-purple-200 px-1.5 py-0.5 rounded cursor-pointer">Save</span>
+        <span class="hover:bg-purple-200 px-1.5 py-0.5 rounded cursor-pointer">Edit</span>
+        <span class="hover:bg-purple-200 px-1.5 py-0.5 rounded cursor-pointer">Format</span>
+      </div>
+      <textarea id="notepad-text" class="flex-1 bg-white p-3 font-mono text-sm text-slate-800 outline-none resize-none" placeholder="Type your note here..."></textarea>
+    </div>
+
+    <!-- 6. CALCULATOR WINDOW -->
+    <div id="win-calc" class="aero-window absolute w-[270px] h-[350px] top-20 left-72 flex flex-col pointer-events-auto hidden shadow-2xl" onclick="System.focusWindow('win-calc')">
+      <!-- Titlebar -->
+      <div class="aero-titlebar h-8 px-3 flex items-center justify-between cursor-move" onmousedown="System.startDrag(event, 'win-calc')">
+        <div class="flex items-center space-x-2 text-white font-semibold text-xs">
+          <i class="fa-solid fa-calculator text-fuchsia-300"></i>
+          <span>Calculator</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <button onclick="System.minimizeWindow('win-calc')" class="vista-btn vista-btn-minmax w-6 h-5 rounded flex items-center justify-center text-slate-800 text-xs font-bold">─</button>
+          <button onclick="System.closeWindow('win-calc')" class="vista-btn vista-btn-close w-11 h-5 rounded flex items-center justify-center text-white text-xs">✕</button>
+        </div>
+      </div>
+      <div class="p-3 bg-slate-100/90 flex-1 flex flex-col space-y-2">
+        <div id="calc-display" class="bg-white border border-purple-300 rounded p-2 text-right text-xl font-mono font-bold text-purple-950 shadow-inner overflow-hidden h-10">0</div>
+        <div class="grid grid-cols-4 gap-1.5 flex-1">
+          <button onclick="Calc.press('C')" class="bg-gradient-to-b from-red-100 to-red-200 border border-red-300 rounded font-bold text-red-700 text-xs hover:from-red-200">C</button>
+          <button onclick="Calc.press('CE')" class="bg-gradient-to-b from-slate-100 to-slate-200 border border-slate-300 rounded text-xs hover:from-white">CE</button>
+          <button onclick="Calc.press('sqrt')" class="bg-gradient-to-b from-slate-100 to-slate-200 border border-slate-300 rounded text-xs hover:from-white">√</button>
+          <button onclick="Calc.press('/')" class="bg-gradient-to-b from-purple-100 to-purple-200 border border-purple-300 rounded text-purple-900 font-bold text-xs">÷</button>
+          
+          <button onclick="Calc.press('7')" class="bg-white border border-slate-300 rounded font-bold text-slate-700 hover:bg-slate-50">7</button>
+          <button onclick="Calc.press('8')" class="bg-white border border-slate-300 rounded font-bold text-slate-700 hover:bg-slate-50">8</button>
+          <button onclick="Calc.press('9')" class="bg-white border border-slate-300 rounded font-bold text-slate-700 hover:bg-slate-50">9</button>
+          <button onclick="Calc.press('*')" class="bg-gradient-to-b from-purple-100 to-purple-200 border border-purple-300 rounded text-purple-900 font-bold text-xs">×</button>
+          
+          <button onclick="Calc.press('4')" class="bg-white border border-slate-300 rounded font-bold text-slate-700 hover:bg-slate-50">4</button>
+          <button onclick="Calc.press('5')" class="bg-white border border-slate-300 rounded font-bold text-slate-700 hover:bg-slate-50">5</button>
+          <button onclick="Calc.press('6')" class="bg-white border border-slate-300 rounded font-bold text-slate-700 hover:bg-slate-50">6</button>
+          <button onclick="Calc.press('-')" class="bg-gradient-to-b from-purple-100 to-purple-200 border border-purple-300 rounded text-purple-900 font-bold text-xs">-</button>
+          
+          <button onclick="Calc.press('1')" class="bg-white border border-slate-300 rounded font-bold text-slate-700 hover:bg-slate-50">1</button>
+          <button onclick="Calc.press('2')" class="bg-white border border-slate-300 rounded font-bold text-slate-700 hover:bg-slate-50">2</button>
+          <button onclick="Calc.press('3')" class="bg-white border border-slate-300 rounded font-bold text-slate-700 hover:bg-slate-50">3</button>
+          <button onclick="Calc.press('+')" class="bg-gradient-to-b from-purple-100 to-purple-200 border border-purple-300 rounded text-purple-900 font-bold text-xs">+</button>
+          
+          <button onclick="Calc.press('0')" class="col-span-2 bg-white border border-slate-300 rounded font-bold text-slate-700 hover:bg-slate-50">0</button>
+          <button onclick="Calc.press('.')" class="bg-white border border-slate-300 rounded font-bold text-slate-700 hover:bg-slate-50">.</button>
+          <button onclick="Calc.press('=')" class="bg-gradient-to-b from-purple-600 to-indigo-800 text-white border border-purple-900 rounded font-bold text-sm shadow">=</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. PERSONALIZATION WINDOW -->
+    <div id="win-personalize" class="aero-window absolute w-[600px] h-[430px] top-16 left-36 flex flex-col pointer-events-auto hidden shadow-2xl" onclick="System.focusWindow('win-personalize')">
+      <!-- Titlebar -->
+      <div class="aero-titlebar h-8 px-3 flex items-center justify-between cursor-move" onmousedown="System.startDrag(event, 'win-personalize')">
+        <div class="flex items-center space-x-2 text-white font-semibold text-xs">
+          <i class="fa-solid fa-palette text-pink-300"></i>
+          <span>Personalization & Aero Color Tint</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <button onclick="System.minimizeWindow('win-personalize')" class="vista-btn vista-btn-minmax w-6 h-5 rounded flex items-center justify-center text-slate-800 text-xs font-bold">─</button>
+          <button onclick="System.closeWindow('win-personalize')" class="vista-btn vista-btn-close w-11 h-5 rounded flex items-center justify-center text-white text-xs">✕</button>
+        </div>
+      </div>
+      <div class="bg-white/95 p-5 flex-1 overflow-y-auto space-y-5 text-xs">
+        <div>
+          <h3 class="font-bold text-purple-950 text-sm mb-2 border-b border-purple-100 pb-1">Window Color & Aero Tint</h3>
+          <p class="text-slate-500 mb-3">Choose a Frutiger Aero Glass color palette:</p>
+          <div class="grid grid-cols-6 gap-3">
+            <button onclick="Personalization.setColor('#55148c')" class="h-10 rounded-lg border-2 border-white shadow-lg bg-purple-700 hover:scale-105 transition flex items-center justify-center text-white text-xs font-bold">Royal Purple</button>
+            <button onclick="Personalization.setColor('#80148c')" class="h-10 rounded-lg border-2 border-white shadow-lg bg-fuchsia-700 hover:scale-105 transition flex items-center justify-center text-white text-xs font-bold">Magenta</button>
+            <button onclick="Personalization.setColor('#2d148c')" class="h-10 rounded-lg border-2 border-white shadow-lg bg-indigo-800 hover:scale-105 transition flex items-center justify-center text-white text-xs font-bold">Deep Violet</button>
+            <button onclick="Personalization.setColor('#006ea0')" class="h-10 rounded-lg border-2 border-white shadow-lg bg-cyan-600 hover:scale-105 transition flex items-center justify-center text-white text-xs font-bold">Teal Blue</button>
+            <button onclick="Personalization.setColor('#0e6b38')" class="h-10 rounded-lg border-2 border-white shadow-lg bg-emerald-700 hover:scale-105 transition flex items-center justify-center text-white text-xs font-bold">Emerald</button>
+            <button onclick="Personalization.setColor('#2d3748')" class="h-10 rounded-lg border-2 border-white shadow-lg bg-slate-800 hover:scale-105 transition flex items-center justify-center text-white text-xs font-bold">Graphite</button>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-purple-950 text-sm mb-2 border-b border-purple-100 pb-1">Desktop Background Wallpapers</h3>
+          <div class="grid grid-cols-3 gap-3">
+            <div onclick="Personalization.setWallpaper('purple-aurora')" class="border-2 border-purple-500 p-1 rounded-lg cursor-pointer hover:opacity-90 bg-slate-100">
+              <div class="h-16 bg-gradient-to-r from-purple-900 via-fuchsia-800 to-indigo-950 rounded"></div>
+              <div class="text-center font-semibold mt-1 text-slate-700">Purple Aurora Waves</div>
+            </div>
+            <div onclick="Personalization.setWallpaper('velvet-bokeh')" class="border border-slate-300 p-1 rounded-lg cursor-pointer hover:opacity-90 bg-slate-100">
+              <div class="h-16 bg-gradient-to-r from-violet-950 via-purple-700 to-pink-900 rounded"></div>
+              <div class="text-center font-semibold mt-1 text-slate-700">Velvet Bokeh Glow</div>
+            </div>
+            <div onclick="Personalization.setWallpaper('emerald-field')" class="border border-slate-300 p-1 rounded-lg cursor-pointer hover:opacity-90 bg-slate-100">
+              <div class="h-16 bg-gradient-to-r from-teal-900 via-emerald-700 to-green-950 rounded"></div>
+              <div class="text-center font-semibold mt-1 text-slate-700">Vista Emerald Field</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. WELCOME CENTER WINDOW -->
+    <div id="win-welcome" class="aero-window absolute w-[650px] h-[470px] top-8 left-28 flex flex-col pointer-events-auto hidden shadow-2xl" onclick="System.focusWindow('win-welcome')">
+      <!-- Titlebar -->
+      <div class="aero-titlebar h-8 px-3 flex items-center justify-between cursor-move" onmousedown="System.startDrag(event, 'win-welcome')">
+        <div class="flex items-center space-x-2 text-white font-semibold text-xs">
+          <i class="fa-solid fa-circle-info text-purple-300"></i>
+          <span>Welcome Center - Windows Vista Ultimate</span>
+        </div>
+        <div class="flex items-center space-x-1">
+          <button onclick="System.closeWindow('win-welcome')" class="vista-btn vista-btn-close w-11 h-5 rounded flex items-center justify-center text-white text-xs">✕</button>
+        </div>
+      </div>
+      <div class="bg-white/95 p-6 flex-1 overflow-y-auto space-y-4">
+        <div class="flex items-center space-x-4 border-b border-slate-200 pb-4">
+          <div class="w-16 h-16 bg-gradient-to-br from-purple-500 via-fuchsia-600 to-indigo-900 rounded-full flex items-center justify-center text-white text-3xl shadow-lg border-2 border-white">
+            <i class="fa-brands fa-windows"></i>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-slate-800">Windows Vista Ultimate</h2>
+            <p class="text-xs text-purple-700 font-semibold">Service Pack 2 • Violet Frutiger Aero Edition</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-purple-50/60 border border-purple-200 p-3 rounded-lg flex items-center space-x-3">
+            <div class="w-12 h-12 bg-purple-200/80 rounded-full flex items-center justify-center text-purple-800 text-xl font-bold border border-purple-300">5.9</div>
+            <div>
+              <div class="text-xs font-bold text-purple-950">Windows Experience Index</div>
+              <div class="text-[11px] text-slate-500">Subscore: Gaming & Aero Glass 3D</div>
+            </div>
+          </div>
+          <div class="bg-purple-50/60 border border-purple-200 p-3 rounded-lg space-y-1">
+            <div class="text-xs font-bold text-purple-950">System Specifications</div>
+            <div class="text-[11px] text-slate-500">Processor: Intel Core 2 Quad Q9650 @ 3.00GHz</div>
+            <div class="text-[11px] text-slate-500">Memory (RAM): 8.00 GB High Speed DDR3</div>
+          </div>
+        </div>
+
+        <div class="bg-purple-50 border border-purple-200 rounded-lg p-3 text-xs text-purple-950 space-y-2">
+          <div class="font-bold flex items-center text-purple-800"><i class="fa-solid fa-sparkles mr-2 text-purple-500"></i> Purple Frutiger Aero Highlights</div>
+          <ul class="list-disc list-inside space-y-1 text-slate-600">
+            <li>Dynamic Canvas Aurora backdrop rendering glowing light waves and glass bubbles.</li>
+            <li>Protruding Start Orb dome hovering above taskbar height with authentic Windows emblem.</li>
+            <li>Windows Flip 3D stacked window manager (Press <strong>Win + Tab</strong> or click taskbar icon).</li>
+            <li>Interactive Minesweeper game and Media Player audio visualizer engine.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VISTA SIDEBAR (RIGHT EDGE) -->
+  <div id="vista-sidebar" class="vista-sidebar absolute top-0 right-0 bottom-11 w-64 z-30 p-3 flex flex-col space-y-4 pointer-events-auto">
+    
+    <!-- Analog Clock Gadget -->
+    <div class="gadget-card p-3 flex flex-col items-center justify-center relative">
+      <div class="w-32 h-32 rounded-full border-4 border-white/80 bg-gradient-to-b from-purple-100/90 to-slate-200/90 shadow-lg relative flex items-center justify-center">
+        <!-- Clock Face Ticks -->
+        <div class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-purple-950">
+          <span class="absolute top-1">12</span>
+          <span class="absolute right-2">3</span>
+          <span class="absolute bottom-1">6</span>
+          <span class="absolute left-2">9</span>
+        </div>
+        <!-- Clock Hands -->
+        <div id="clock-hour" class="absolute w-1 h-8 bg-purple-950 rounded top-8 origin-bottom transition-transform"></div>
+        <div id="clock-min" class="absolute w-0.5 h-12 bg-purple-700 rounded top-4 origin-bottom transition-transform"></div>
+        <div id="clock-sec" class="absolute w-0.5 h-13 bg-fuchsia-600 rounded top-3 origin-bottom transition-transform"></div>
+        <div class="w-2.5 h-2.5 bg-purple-950 rounded-full z-10 border border-white"></div>
+      </div>
+      <div id="sidebar-date" class="mt-2 text-xs font-bold text-white drop-shadow">Wed, Sep 16</div>
+    </div>
+
+    <!-- CPU & RAM Performance Meter Gadget -->
+    <div class="gadget-card p-3 text-white space-y-2">
+      <div class="text-xs font-bold border-b border-white/30 pb-1 flex justify-between">
+        <span>Performance Meter</span>
+        <i class="fa-solid fa-microchip text-purple-300"></i>
+      </div>
+      <div class="flex justify-around items-center pt-1">
+        <!-- CPU Gauge -->
+        <div class="text-center">
+          <div class="relative w-16 h-16 flex items-center justify-center">
+            <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+              <path class="text-white/20" stroke-width="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              <path id="cpu-circle" class="text-purple-400" stroke-dasharray="28, 100" stroke-width="4" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            </svg>
+            <span id="cpu-val" class="absolute text-xs font-bold">28%</span>
+          </div>
+          <span class="text-[10px] uppercase tracking-wider text-purple-200">CPU</span>
+        </div>
+
+        <!-- RAM Gauge -->
+        <div class="text-center">
+          <div class="relative w-16 h-16 flex items-center justify-center">
+            <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+              <path class="text-white/20" stroke-width="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              <path id="ram-circle" class="text-fuchsia-400" stroke-dasharray="48, 100" stroke-width="4" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            </svg>
+            <span id="ram-val" class="absolute text-xs font-bold">48%</span>
+          </div>
+          <span class="text-[10px] uppercase tracking-wider text-purple-200">RAM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weather Gadget -->
+    <div class="gadget-card p-3 text-white space-y-2">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold">Tokyo / Hachioji</span>
+        <i class="fa-solid fa-moon text-fuchsia-300 text-lg"></i>
+      </div>
+      <div class="flex items-baseline space-x-2">
+        <span class="text-3xl font-light">68°</span>
+        <span class="text-xs text-purple-200">Clear Night • H:72° L:60°</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VISTA START MENU (POPOVER) -->
+  <div id="start-menu" class="vista-start-menu absolute bottom-11 left-0 w-[430px] h-[520px] z-50 flex flex-col hidden pointer-events-auto">
+    <!-- Top Header User Profile -->
+    <div class="p-3 bg-gradient-to-r from-purple-950 to-slate-900 border-b border-white/20 flex items-center space-x-3">
+      <div class="w-12 h-12 rounded-lg border-2 border-white/80 shadow bg-gradient-to-tr from-purple-400 to-indigo-700 flex items-center justify-center text-white text-xl">
+        <i class="fa-solid fa-user"></i>
+      </div>
+      <div>
+        <div class="text-sm font-bold text-white drop-shadow">Aero User</div>
+        <div class="text-xs text-purple-300">Administrator</div>
+      </div>
+    </div>
+
+    <!-- Main Dual Pane Body -->
+    <div class="flex-1 flex overflow-hidden">
+      <!-- Left Pane (Pinned Apps) -->
+      <div class="flex-1 bg-white/95 p-2 space-y-1 overflow-y-auto" id="start-pinned-list">
+        <div onclick="System.openApp('ie7'); System.toggleStartMenu();" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-purple-100 cursor-pointer">
+          <i class="fa-e text-2xl text-sky-500 font-bold"></i>
+          <div>
+            <div class="text-xs font-bold text-slate-800">Internet Explorer</div>
+            <div class="text-[10px] text-slate-500">Browse the web</div>
+          </div>
+        </div>
+        <div onclick="System.openApp('wmp11'); System.toggleStartMenu();" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-purple-100 cursor-pointer">
+          <i class="fa-solid fa-play-circle text-2xl text-purple-600"></i>
+          <div>
+            <div class="text-xs font-bold text-slate-800">Windows Media Player</div>
+            <div class="text-[10px] text-slate-500">Play music & visualizers</div>
+          </div>
+        </div>
+        <div onclick="System.openApp('minesweeper'); System.toggleStartMenu();" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-purple-100 cursor-pointer">
+          <i class="fa-solid fa-land-mine-on text-2xl text-amber-500"></i>
+          <div>
+            <div class="text-xs font-bold text-slate-800">Minesweeper</div>
+            <div class="text-[10px] text-slate-500">Play mine puzzle game</div>
+          </div>
+        </div>
+        <div onclick="System.openApp('explorer'); System.toggleStartMenu();" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-purple-100 cursor-pointer">
+          <i class="fa-solid fa-desktop text-2xl text-purple-700"></i>
+          <div>
+            <div class="text-xs font-bold text-slate-800">Computer</div>
+            <div class="text-[10px] text-slate-500">View files & drives</div>
+          </div>
+        </div>
+        <div onclick="System.openApp('notepad'); System.toggleStartMenu();" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-purple-100 cursor-pointer">
+          <i class="fa-solid fa-note-sticky text-2xl text-purple-400"></i>
+          <div>
+            <div class="text-xs font-bold text-slate-800">Notepad</div>
+            <div class="text-[10px] text-slate-500">Text editor</div>
+          </div>
+        </div>
+        <div onclick="System.openApp('calc'); System.toggleStartMenu();" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-purple-100 cursor-pointer">
+          <i class="fa-solid fa-calculator text-2xl text-fuchsia-500"></i>
+          <div>
+            <div class="text-xs font-bold text-slate-800">Calculator</div>
+            <div class="text-[10px] text-slate-500">Perform calculations</div>
+          </div>
+        </div>
+        <div onclick="System.openApp('personalize'); System.toggleStartMenu();" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-purple-100 cursor-pointer">
+          <i class="fa-solid fa-palette text-2xl text-pink-400"></i>
+          <div>
+            <div class="text-xs font-bold text-slate-800">Personalize</div>
+            <div class="text-[10px] text-slate-500">Change Aero purple theme</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Pane (Places & Settings) -->
+      <div class="w-44 bg-purple-950/70 p-2 space-y-1 text-xs text-purple-100 border-l border-white/10">
+        <div onclick="System.openApp('explorer'); System.toggleStartMenu();" class="p-1.5 rounded hover:bg-white/20 cursor-pointer flex items-center space-x-2">
+          <i class="fa-solid fa-folder-open text-amber-400"></i>
+          <span>Documents</span>
+        </div>
+        <div onclick="System.openApp('explorer'); System.toggleStartMenu();" class="p-1.5 rounded hover:bg-white/20 cursor-pointer flex items-center space-x-2">
+          <i class="fa-solid fa-image text-emerald-400"></i>
+          <span>Pictures</span>
+        </div>
+        <div onclick="System.openApp('explorer'); System.toggleStartMenu();" class="p-1.5 rounded hover:bg-white/20 cursor-pointer flex items-center space-x-2">
+          <i class="fa-solid fa-music text-purple-300"></i>
+          <span>Music</span>
+        </div>
+        <div class="border-t border-white/20 my-1"></div>
+        <div onclick="System.openApp('explorer'); System.toggleStartMenu();" class="p-1.5 rounded hover:bg-white/20 cursor-pointer flex items-center space-x-2">
+          <i class="fa-solid fa-desktop text-purple-400"></i>
+          <span class="font-bold">Computer</span>
+        </div>
+        <div onclick="System.openApp('personalize'); System.toggleStartMenu();" class="p-1.5 rounded hover:bg-white/20 cursor-pointer flex items-center space-x-2">
+          <i class="fa-solid fa-sliders text-fuchsia-400"></i>
+          <span>Control Panel</span>
+        </div>
+        <div onclick="System.openApp('welcome'); System.toggleStartMenu();" class="p-1.5 rounded hover:bg-white/20 cursor-pointer flex items-center space-x-2">
+          <i class="fa-solid fa-circle-question text-amber-300"></i>
+          <span>Help & Support</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start Menu Search & Power Bar -->
+    <div class="p-2 bg-slate-950/90 border-t border-white/20 flex items-center justify-between">
+      <div class="flex-1 mr-3 h-7 bg-white/90 border border-purple-300 rounded px-2 flex items-center text-xs">
+        <i class="fa-solid fa-magnifying-glass text-purple-400 mr-2"></i>
+        <input id="start-search-input" onkeyup="System.filterStartMenu(this.value)" type="text" placeholder="Start Search" class="w-full outline-none text-slate-800 bg-transparent">
+      </div>
+      <!-- Power Buttons -->
+      <div class="flex items-center space-x-1">
+        <button onclick="System.playSound('click'); location.reload();" title="Restart System" class="w-7 h-7 rounded bg-red-600 hover:bg-red-500 border border-red-300 text-white flex items-center justify-center text-xs shadow">
+          <i class="fa-solid fa-power-off"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISTA TASKBAR -->
+  <div class="vista-taskbar absolute bottom-0 left-0 right-0 h-11 z-40 flex items-center justify-between px-2 pointer-events-auto">
+    <!-- Start Orb & Quick Launch -->
+    <div class="flex items-center space-x-3">
+      <!-- Protruding Start Orb -->
+      <div class="start-orb-wrapper">
+        <div onclick="System.toggleStartMenu()" class="start-orb flex items-center justify-center relative">
+          <svg class="w-7 h-7 drop-shadow" viewBox="0 0 100 100">
+            <path d="M15,15 L45,10 L45,45 L15,45 Z" fill="#e81123"/>
+            <path d="M55,8 L85,3 L85,45 L55,45 Z" fill="#7fa040"/>
+            <path d="M15,55 L45,55 L45,90 L15,85 Z" fill="#00adef"/>
+            <path d="M55,55 L85,55 L85,97 L55,92 Z" fill="#ffb900"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Quick Launch Icons -->
+      <div class="flex items-center space-x-1 pl-1 border-l border-white/30">
+        <button onclick="System.toggleFlip3D()" title="Windows Flip 3D" class="w-7 h-7 rounded hover:bg-white/20 flex items-center justify-center text-purple-300">
+          <i class="fa-solid fa-layer-group text-sm"></i>
+        </button>
+        <button onclick="System.openApp('ie7')" title="Internet Explorer" class="w-7 h-7 rounded hover:bg-white/20 flex items-center justify-center text-sky-400">
+          <i class="fa-e font-bold text-sm"></i>
+        </button>
+        <button onclick="System.openApp('wmp11')" title="Windows Media Player" class="w-7 h-7 rounded hover:bg-white/20 flex items-center justify-center text-purple-400">
+          <i class="fa-solid fa-play-circle text-sm"></i>
+        </button>
+        <button onclick="System.openApp('minesweeper')" title="Minesweeper" class="w-7 h-7 rounded hover:bg-white/20 flex items-center justify-center text-amber-300">
+          <i class="fa-solid fa-land-mine-on text-sm"></i>
+        </button>
+      </div>
+
+      <!-- Active Taskbar Window Buttons -->
+      <div id="taskbar-apps" class="flex items-center space-x-1 pl-2">
+        <!-- Dynamic Taskbar Buttons -->
+      </div>
+    </div>
+
+    <!-- System Tray Clock & Network -->
+    <div class="flex items-center space-x-3 pr-1 text-white">
+      <i class="fa-solid fa-wifi text-xs text-purple-300"></i>
+      <i class="fa-solid fa-volume-high text-xs text-slate-300 cursor-pointer" onclick="System.playSound('click')"></i>
+      <!-- System Clock -->
+      <div id="taskbar-clock" class="text-right text-xs cursor-pointer hover:bg-white/10 px-2 py-1 rounded">
+        <div id="taskbar-time-str" class="font-bold leading-tight">12:00 AM</div>
+        <div id="taskbar-date-str" class="text-[10px] text-purple-200 leading-tight">9/16/2026</div>
+      </div>
+      <!-- Show Desktop Bar -->
+      <div onclick="System.showDesktop()" title="Show Desktop" class="w-2.5 h-7 bg-white/35 hover:bg-white/70 rounded-sm border border-white/60 cursor-pointer"></div>
+    </div>
+  </div>
+
+  <!-- FLIP 3D OVERLAY MODAL -->
+  <div id="flip3d-overlay" class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex flex-col items-center justify-center hidden pointer-events-auto">
+    <div class="text-purple-200 text-sm font-semibold mb-6 tracking-widest uppercase text-shadow">Windows Flip 3D (Click a window frame to switch)</div>
+    <div id="flip3d-stack" class="flip3d-container w-[720px] h-[460px] relative flex items-center justify-center">
+      <!-- Dynamic Flip 3D Stack Cards -->
+    </div>
+    <button onclick="System.toggleFlip3D()" class="mt-6 px-6 py-2 bg-purple-900/50 hover:bg-purple-800/70 border border-purple-400/60 rounded-full text-white text-xs font-bold shadow-lg">Close Flip 3D (Esc)</button>
+  </div>
+
+  <script>
+    // Web Audio Synthesizer Engine
+    const AudioEngine = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+      },
+      playTone(freq, duration, type = 'sine') {
+        this.init();
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch (e) {}
+      },
+      playVistaChime() {
+        this.init();
+        // Rich Purple Vista Chord Progression (Eb, Bb, F, Eb)
+        const notes = [311.13, 466.16, 698.46, 932.33];
+        notes.forEach((freq, idx) => {
+          setTimeout(() => this.playTone(freq, 1.4, 'sine'), idx * 130);
+        });
+      }
+    };
+
+    // Animated HTML5 Canvas Frutiger Aero Purple Wallpaper
+    const Wallpaper = {
+      canvas: null,
+      ctx: null,
+      bubbles: [],
+      t: 0,
+      init() {
+        this.canvas = document.getElementById('wallpaper-canvas');
+        if (!this.canvas) return;
+        this.ctx = this.canvas.getContext('2d');
+        this.resize();
+        window.addEventListener('resize', () => this.resize());
+
+        // Generate translucent glass bubbles
+        this.bubbles = [];
+        for (let i = 0; i < 28; i++) {
+          this.bubbles.push({
+            x: Math.random() * this.canvas.width,
+            y: Math.random() * this.canvas.height,
+            r: 20 + Math.random() * 80,
+            vy: 0.2 + Math.random() * 0.6,
+            vx: (Math.random() - 0.5) * 0.4,
+            alpha: 0.15 + Math.random() * 0.35
+          });
+        }
+        this.animate();
+      },
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      },
+      animate() {
+        requestAnimationFrame(() => this.animate());
+        this.t += 0.015;
+        const w = this.canvas.width;
+        const h = this.canvas.height;
+
+        // Base Purple Deep Gradient
+        const bgGrad = this.ctx.createLinearGradient(0, 0, w, h);
+        bgGrad.addColorStop(0, '#0c0217');
+        bgGrad.addColorStop(0.35, '#280845');
+        bgGrad.addColorStop(0.7, '#481068');
+        bgGrad.addColorStop(1, '#120224');
+        this.ctx.fillStyle = bgGrad;
+        this.ctx.fillRect(0, 0, w, h);
+
+        // Aurora Wave Ribbon 1
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, h * 0.7);
+        for (let x = 0; x <= w; x += 30) {
+          const y = h * 0.5 + Math.sin(this.t + x * 0.003) * 120 + Math.cos(this.t * 0.7 + x * 0.002) * 60;
+          this.ctx.lineTo(x, y);
+        }
+        this.ctx.lineTo(w, h);
+        this.ctx.lineTo(0, h);
+        const waveGrad1 = this.ctx.createLinearGradient(0, 0, w, h);
+        waveGrad1.addColorStop(0, 'rgba(180, 50, 240, 0.45)');
+        waveGrad1.addColorStop(0.5, 'rgba(120, 20, 210, 0.25)');
+        waveGrad1.addColorStop(1, 'rgba(30, 0, 60, 0)');
+        this.ctx.fillStyle = waveGrad1;
+        this.ctx.fill();
+        this.ctx.restore();
+
+        // Aurora Wave Ribbon 2 (Magenta Sweep)
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.moveTo(0, h * 0.8);
+        for (let x = 0; x <= w; x += 30) {
+          const y = h * 0.4 + Math.cos(this.t * 1.2 + x * 0.0025) * 140;
+          this.ctx.lineTo(x, y);
+        }
+        this.ctx.lineTo(w, h);
+        this.ctx.lineTo(0, h);
+        const waveGrad2 = this.ctx.createLinearGradient(w, 0, 0, h);
+        waveGrad2.addColorStop(0, 'rgba(230, 80, 200, 0.35)');
+        waveGrad2.addColorStop(0.6, 'rgba(90, 10, 160, 0.15)');
+        waveGrad2.addColorStop(1, 'rgba(10, 0, 30, 0)');
+        this.ctx.fillStyle = waveGrad2;
+        this.ctx.fill();
+        this.ctx.restore();
+
+        // Glass Bubbles
+        this.bubbles.forEach(b => {
+          b.y -= b.vy;
+          b.x += b.vx;
+          if (b.y + b.r < 0) { b.y = h + b.r; b.x = Math.random() * w; }
+
+          this.ctx.save();
+          this.ctx.beginPath();
+          this.ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+          
+          // Bubble rim highlight
+          this.ctx.strokeStyle = `rgba(255, 255, 255, ${b.alpha})`;
+          this.ctx.lineWidth = 1.8;
+          this.ctx.stroke();
+
+          // Bubble inner sheen
+          const bGrad = this.ctx.createRadialGradient(b.x - b.r * 0.3, b.y - b.r * 0.3, b.r * 0.1, b.x, b.y, b.r);
+          bGrad.addColorStop(0, `rgba(255, 255, 255, ${b.alpha * 0.8})`);
+          bGrad.addColorStop(0.4, `rgba(220, 140, 255, ${b.alpha * 0.2})`);
+          bGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+          this.ctx.fillStyle = bGrad;
+          this.ctx.fill();
+          this.ctx.restore();
+        });
+      }
+    };
+
+    // Core Desktop System Manager
+    const System = {
+      activeWindow: null,
+      zIndexCounter: 100,
+      dragTarget: null,
+      dragOffset: { x: 0, y: 0 },
+
+      openApp(appId) {
+        AudioEngine.playTone(650, 0.08);
+        const win = document.getElementById(`win-${appId}`);
+        if (!win) return;
+        
+        win.classList.remove('hidden');
+        this.focusWindow(`win-${appId}`);
+        this.updateTaskbar();
+      },
+
+      closeWindow(winId) {
+        AudioEngine.playTone(320, 0.08);
+        const win = document.getElementById(winId);
+        if (win) win.classList.add('hidden');
+        this.updateTaskbar();
+      },
+
+      minimizeWindow(winId) {
+        const win = document.getElementById(winId);
+        if (win) win.classList.add('hidden');
+        this.updateTaskbar();
+      },
+
+      maximizeWindow(winId) {
+        const win = document.getElementById(winId);
+        if (!win) return;
+        if (win.dataset.maximized === "true") {
+          win.style.top = win.dataset.oldTop || '60px';
+          win.style.left = win.dataset.oldLeft || '100px';
+          win.style.width = win.dataset.oldWidth || '640px';
+          win.style.height = win.dataset.oldHeight || '420px';
+          win.dataset.maximized = "false";
+        } else {
+          win.dataset.oldTop = win.style.top;
+          win.dataset.oldLeft = win.style.left;
+          win.dataset.oldWidth = win.style.width;
+          win.dataset.oldHeight = win.style.height;
+
+          win.style.top = '0px';
+          win.style.left = '0px';
+          win.style.width = 'calc(100vw - 256px)'; // Account for Sidebar
+          win.style.height = 'calc(100vh - 44px)';
+          win.dataset.maximized = "true";
+        }
+      },
+
+      focusWindow(winId) {
+        document.querySelectorAll('.aero-window').forEach(w => w.classList.add('inactive'));
+        const win = document.getElementById(winId);
+        if (win) {
+          this.zIndexCounter++;
+          win.style.zIndex = this.zIndexCounter;
+          win.classList.remove('inactive');
+          this.activeWindow = winId;
+        }
+        this.updateTaskbar();
+      },
+
+      startDrag(e, winId) {
+        this.focusWindow(winId);
+        this.dragTarget = document.getElementById(winId);
+        const rect = this.dragTarget.getBoundingClientRect();
+        this.dragOffset.x = e.clientX - rect.left;
+        this.dragOffset.y = e.clientY - rect.top;
+
+        const onMouseMove = (ev) => {
+          if (!this.dragTarget) return;
+          let newX = ev.clientX - this.dragOffset.x;
+          let newY = ev.clientY - this.dragOffset.y;
+          this.dragTarget.style.left = `${Math.max(0, newX)}px`;
+          this.dragTarget.style.top = `${Math.max(0, newY)}px`;
+        };
+
+        const onMouseUp = () => {
+          this.dragTarget = null;
+          window.removeEventListener('mousemove', onMouseMove);
+          window.removeEventListener('mouseup', onMouseUp);
+        };
+
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+      },
+
+      toggleStartMenu() {
+        AudioEngine.playTone(550, 0.05);
+        const menu = document.getElementById('start-menu');
+        menu.classList.toggle('hidden');
+      },
+
+      showDesktop() {
+        document.querySelectorAll('.aero-window').forEach(w => w.classList.add('hidden'));
+        this.updateTaskbar();
+      },
+
+      updateTaskbar() {
+        const container = document.getElementById('taskbar-apps');
+        container.innerHTML = '';
+
+        const apps = [
+          { id: 'win-explorer', title: 'Computer', icon: 'fa-desktop text-purple-300' },
+          { id: 'win-ie7', title: 'Internet Explorer', icon: 'fa-e text-sky-400' },
+          { id: 'win-wmp11', title: 'Media Player', icon: 'fa-play-circle text-purple-400' },
+          { id: 'win-minesweeper', title: 'Minesweeper', icon: 'fa-land-mine-on text-amber-300' },
+          { id: 'win-notepad', title: 'Notepad', icon: 'fa-note-sticky text-purple-200' },
+          { id: 'win-calc', title: 'Calculator', icon: 'fa-calculator text-fuchsia-300' },
+          { id: 'win-personalize', title: 'Personalize', icon: 'fa-palette text-pink-300' },
+          { id: 'win-welcome', title: 'Welcome Center', icon: 'fa-circle-info text-purple-300' }
+        ];
+
+        apps.forEach(app => {
+          const win = document.getElementById(app.id);
+          if (win && !win.classList.contains('hidden')) {
+            const isActive = this.activeWindow === app.id;
+            const btn = document.createElement('button');
+            btn.className = `px-3 py-1 rounded border flex items-center space-x-2 text-xs text-white max-w-[150px] truncate transition ${
+              isActive 
+                ? 'bg-white/30 border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] font-bold' 
+                : 'bg-black/30 border-white/20 hover:bg-white/15'
+            }`;
+            btn.onclick = () => {
+              if (isActive) {
+                this.minimizeWindow(app.id);
+              } else {
+                win.classList.remove('hidden');
+                this.focusWindow(app.id);
+              }
+            };
+            btn.innerHTML = `<i class="fa-solid ${app.icon}"></i><span class="truncate">${app.title}</span>`;
+            container.appendChild(btn);
+          }
+        });
+      },
+
+      toggleFlip3D() {
+        const overlay = document.getElementById('flip3d-overlay');
+        const stack = document.getElementById('flip3d-stack');
+        
+        if (overlay.classList.contains('hidden')) {
+          stack.innerHTML = '';
+          let activeWins = Array.from(document.querySelectorAll('.aero-window')).filter(w => !w.classList.contains('hidden'));
+          
+          if (activeWins.length === 0) {
+            this.openApp('explorer');
+            this.openApp('wmp11');
+            activeWins = Array.from(document.querySelectorAll('.aero-window')).filter(w => !w.classList.contains('hidden'));
+          }
+
+          activeWins.forEach((win, index) => {
+            const card = document.createElement('div');
+            card.className = "flip3d-card absolute w-[420px] h-[270px] bg-purple-950/90 border-2 border-purple-300/80 rounded-xl shadow-2xl flex flex-col overflow-hidden cursor-pointer hover:border-white transition-all";
+            
+            // Stack perspective depth
+            const offsetZ = -index * 140;
+            const offsetY = index * 22;
+            const offsetX = index * 42;
+            card.style.transform = `translate3d(${offsetX}px, ${offsetY}px, ${offsetZ}px) rotateY(-26deg) rotateX(10deg)`;
+            
+            const title = win.querySelector('.aero-titlebar span') ? win.querySelector('.aero-titlebar span').innerText : 'Window';
+            card.innerHTML = `
+              <div class="bg-gradient-to-r from-purple-700 to-indigo-800 p-2 text-white font-bold text-xs flex items-center justify-between border-b border-purple-400/50">
+                <span>${title}</span>
+                <i class="fa-solid fa-window-restore text-purple-200"></i>
+              </div>
+              <div class="flex-1 bg-slate-900/90 p-4 text-purple-200 text-xs flex items-center justify-center font-mono">
+                [Windows Vista Purple Aero Glass Window Preview]
+              </div>
+            `;
+            card.onclick = () => {
+              this.focusWindow(win.id);
+              overlay.classList.add('hidden');
+            };
+            stack.appendChild(card);
+          });
+
+          overlay.classList.remove('hidden');
+        } else {
+          overlay.classList.add('hidden');
+        }
+      },
+
+      filterStartMenu(query) {
+        const items = document.querySelectorAll('#start-pinned-list > div');
+        query = query.toLowerCase();
+        items.forEach(item => {
+          const text = item.innerText.toLowerCase();
+          item.style.display = text.includes(query) ? 'flex' : 'none';
+        });
+      },
+
+      playSound(type) {
+        if (type === 'click') AudioEngine.playTone(850, 0.04);
+      }
+    };
+
+    // Minesweeper Game Engine
+    const Minesweeper = {
+      rows: 9,
+      cols: 9,
+      minesCount: 10,
+      board: [],
+      timer: 0,
+      timerInterval: null,
+      gameOver: false,
+
+      init() {
+        this.board = [];
+        this.gameOver = false;
+        clearInterval(this.timerInterval);
+        this.timer = 0;
+        document.getElementById('ms-timer').innerText = '000';
+        document.getElementById('ms-mines-count').innerText = '010';
+        document.getElementById('ms-face-btn').innerText = '🙂';
+
+        // Generate grid
+        for (let r = 0; r < this.rows; r++) {
+          this.board[r] = [];
+          for (let c = 0; c < this.cols; c++) {
+            this.board[r][c] = { mine: false, revealed: false, flagged: false, count: 0 };
+          }
+        }
+
+        // Place mines
+        let placed = 0;
+        while (placed < this.minesCount) {
+          let r = Math.floor(Math.random() * this.rows);
+          let c = Math.floor(Math.random() * this.cols);
+          if (!this.board[r][c].mine) {
+            this.board[r][c].mine = true;
+            placed++;
+          }
+        }
+
+        // Calculate numbers
+        for (let r = 0; r < this.rows; r++) {
+          for (let c = 0; c < this.cols; c++) {
+            if (!this.board[r][c].mine) {
+              let cnt = 0;
+              for (let dr = -1; dr <= 1; dr++) {
+                for (let dc = -1; dc <= 1; dc++) {
+                  let nr = r + dr, nc = c + dc;
+                  if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols && this.board[nr][nc].mine) {
+                    cnt++;
+                  }
+                }
+              }
+              this.board[r][c].count = cnt;
+            }
+          }
+        }
+        this.render();
+      },
+
+      startTimer() {
+        if (this.timerInterval) return;
+        this.timerInterval = setInterval(() => {
+          this.timer++;
+          document.getElementById('ms-timer').innerText = String(this.timer).padStart(3, '0');
+        }, 1000);
+      },
+
+      render() {
+        const grid = document.getElementById('ms-grid');
+        grid.innerHTML = '';
+        for (let r = 0; r < this.rows; r++) {
+          for (let c = 0; c < this.cols; c++) {
+            const cell = this.board[r][c];
+            const btn = document.createElement('button');
+            btn.className = "w-7 h-7 font-bold text-xs flex items-center justify-center rounded border shadow-sm transition";
+            
+            if (cell.revealed) {
+              btn.classList.add('bg-slate-200', 'border-slate-300');
+              if (cell.mine) {
+                btn.innerHTML = '💣';
+                btn.classList.add('bg-red-300');
+              } else if (cell.count > 0) {
+                btn.innerText = cell.count;
+                const colors = ['', 'text-blue-600', 'text-emerald-600', 'text-red-600', 'text-purple-800', 'text-amber-800'];
+                btn.classList.add(colors[cell.count] || 'text-black');
+              }
+            } else {
+              btn.classList.add('bg-gradient-to-b', 'from-white', 'to-purple-100', 'border-purple-300', 'hover:bg-purple-200');
+              if (cell.flagged) {
+                btn.innerHTML = '🚩';
+              }
+            }
+
+            btn.onclick = () => this.clickCell(r, c);
+            btn.oncontextmenu = (e) => {
+              e.preventDefault();
+              this.flagCell(r, c);
+            };
+
+            grid.appendChild(btn);
+          }
+        }
+      },
+
+      clickCell(r, c) {
+        if (this.gameOver) return;
+        this.startTimer();
+        const cell = this.board[r][c];
+        if (cell.flagged || cell.revealed) return;
+
+        cell.revealed = true;
+        AudioEngine.playTone(700, 0.04);
+
+        if (cell.mine) {
+          this.gameOver = true;
+          clearInterval(this.timerInterval);
+          document.getElementById('ms-face-btn').innerText = '😵';
+          AudioEngine.playTone(200, 0.3, 'sawtooth');
+          // Reveal all mines
+          for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+              if (this.board[i][j].mine) this.board[i][j].revealed = true;
+            }
+          }
+        } else if (cell.count === 0) {
+          // Flood fill
+          for (let dr = -1; dr <= 1; dr++) {
+            for (let dc = -1; dc <= 1; dc++) {
+              let nr = r + dr, nc = c + dc;
+              if (nr >= 0 && nr < this.rows && nc >= 0 && nc < this.cols) {
+                this.clickCell(nr, nc);
+              }
+            }
+          }
+        }
+        this.render();
+      },
+
+      flagCell(r, c) {
+        if (this.gameOver) return;
+        const cell = this.board[r][c];
+        if (!cell.revealed) {
+          cell.flagged = !cell.flagged;
+          AudioEngine.playTone(900, 0.03);
+          this.render();
+        }
+      }
+    };
+
+    // Windows Media Player Logic
+    const WMP = {
+      isPlaying: false,
+      togglePlay() {
+        this.isPlaying = !this.isPlaying;
+        const btn = document.getElementById('wmp-play-btn');
+        if (this.isPlaying) {
+          btn.innerHTML = '<i class="fa-solid fa-pause text-white text-lg"></i>';
+          this.startVisualizer();
+        } else {
+          btn.innerHTML = '<i class="fa-solid fa-play text-white text-lg ml-0.5"></i>';
+        }
+      },
+      startVisualizer() {
+        const canvas = document.getElementById('wmp-visualizer');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+
+        const draw = () => {
+          if (!this.isPlaying) return;
+          requestAnimationFrame(draw);
+          ctx.fillStyle = 'rgba(12, 3, 25, 0.25)';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          const time = Date.now() * 0.0035;
+          ctx.lineWidth = 3;
+          ctx.strokeStyle = '#d880ff';
+          ctx.beginPath();
+
+          for (let i = 0; i < canvas.width; i += 8) {
+            const y = canvas.height / 2 + Math.sin(time + i * 0.02) * 45 * Math.cos(time * 0.5);
+            if (i === 0) ctx.moveTo(i, y);
+            else ctx.lineTo(i, y);
+          }
+          ctx.stroke();
+        };
+        draw();
+      },
+      nextTrack() { AudioEngine.playTone(920, 0.06); },
+      prevTrack() { AudioEngine.playTone(450, 0.06); },
+      setVolume(v) {}
+    };
+
+    // Internet Explorer Logic
+    const IE = {
+      navigate() {
+        const input = document.getElementById('ie-address-input').value;
+        document.getElementById('ie-tab-title').innerText = input.replace('http://', '');
+        AudioEngine.playTone(750, 0.05);
+      },
+      search() {
+        const q = document.getElementById('ie-search-input').value;
+        if (q) {
+          document.getElementById('ie-address-input').value = `http://www.search.net?q=${encodeURIComponent(q)}`;
+          this.navigate();
+        }
+      },
+      loadPreset(page) {
+        const container = document.getElementById('ie-content');
+        if (page === 'wiki') {
+          container.innerHTML = `
+            <div class="max-w-xl mx-auto bg-white p-6 rounded-lg border border-purple-200 shadow space-y-3">
+              <h2 class="text-lg font-bold text-purple-900 border-b pb-1">Windows Vista Aero Purple Wiki</h2>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Aero Glass was introduced in Windows Vista in 2006. Powered by DWM (Desktop Window Manager), it provides hardware-accelerated translucent glass window borders with blur and specular light reflections.
+              </p>
+            </div>
+          `;
+        } else if (page === 'news') {
+          container.innerHTML = `
+            <div class="max-w-xl mx-auto bg-white p-6 rounded-lg border border-purple-200 shadow space-y-3">
+              <h2 class="text-lg font-bold text-fuchsia-900 border-b pb-1">Tech News 2007: Vista Release Worldwide</h2>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Microsoft launches Windows Vista with Flip 3D, Live Sidebar Gadgets, DirectX 10, and revolutionary Aero design.
+              </p>
+            </div>
+          `;
+        }
+      },
+      reload() { this.navigate(); },
+      goBack() { AudioEngine.playTone(500, 0.05); }
+    };
+
+    // Calculator Logic
+    const Calc = {
+      display: '0',
+      press(key) {
+        AudioEngine.playTone(720, 0.03);
+        const disp = document.getElementById('calc-display');
+        if (key === 'C') this.display = '0';
+        else if (key === '=') {
+          try { this.display = eval(this.display.replace('÷', '/').replace('×', '*')).toString(); }
+          catch (e) { this.display = 'Error'; }
+        } else if (key === 'sqrt') {
+          this.display = Math.sqrt(parseFloat(this.display)).toString();
+        } else {
+          if (this.display === '0') this.display = key;
+          else this.display += key;
+        }
+        disp.innerText = this.display;
+      }
+    };
+
+    // Notepad Logic
+    const Notepad = {
+      newFile() { document.getElementById('notepad-text').value = ''; },
+      saveFile() {
+        const txt = document.getElementById('notepad-text').value;
+        localStorage.setItem('vista_purple_notepad', txt);
+        AudioEngine.playTone(1050, 0.1);
+      }
+    };
+
+    // Personalization Logic
+    const Personalization = {
+      setColor(colorHex) {
+        document.documentElement.style.setProperty('--aero-tint', colorHex + '85');
+        AudioEngine.playTone(700, 0.05);
+      },
+      setWallpaper(type) {
+        if (type === 'velvet-bokeh') {
+          Wallpaper.bubbles.forEach(b => b.alpha = 0.5);
+        } else {
+          Wallpaper.bubbles.forEach(b => b.alpha = 0.25);
+        }
+      }
+    };
+
+    // Desktop Selection Marquee Drag Listener
+    let isSelecting = false;
+    let startX = 0, startY = 0;
+    const selectionBox = document.getElementById('selection-box');
+
+    window.addEventListener('mousedown', (e) => {
+      // Only trigger if clicking directly on body or desktop wallpaper
+      if (e.target.id === 'wallpaper-canvas' || e.target.id === 'desktop-grid' || e.target.tagName === 'BODY') {
+        isSelecting = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        selectionBox.style.left = `${startX}px`;
+        selectionBox.style.top = `${startY}px`;
+        selectionBox.style.width = '0px';
+        selectionBox.style.height = '0px';
+        selectionBox.style.display = 'block';
+      }
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isSelecting) return;
+      const currentX = e.clientX;
+      const currentY = e.clientY;
+      const width = Math.abs(currentX - startX);
+      const height = Math.abs(currentY - startY);
+      selectionBox.style.left = `${Math.min(currentX, startX)}px`;
+      selectionBox.style.top = `${Math.min(currentY, startY)}px`;
+      selectionBox.style.width = `${width}px`;
+      selectionBox.style.height = `${height}px`;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isSelecting) {
+        isSelecting = false;
+        selectionBox.style.display = 'none';
+      }
+    });
+
+    window.onload = function() {
+      // Initialize Audio & Canvas Wallpaper
+      AudioEngine.playVistaChime();
+      Wallpaper.init();
+      Minesweeper.init();
+
+      // Open Default Welcome Center
+      System.openApp('welcome');
+
+      // Real-time Sidebar Analog Clock & Taskbar Clock updates
+      setInterval(() => {
+        const now = new Date();
+        
+        // Taskbar time
+        document.getElementById('taskbar-time-str').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('taskbar-date-str').innerText = now.toLocaleDateString();
+
+        // Analog Hands rotation
+        const secDeg = now.getSeconds() * 6;
+        const minDeg = now.getMinutes() * 6 + now.getSeconds() * 0.1;
+        const hourDeg = (now.getHours() % 12) * 30 + now.getMinutes() * 0.5;
+
+        const secHand = document.getElementById('clock-sec');
+        const minHand = document.getElementById('clock-min');
+        const hourHand = document.getElementById('clock-hour');
+
+        if (secHand) secHand.style.transform = `rotate(${secDeg}deg)`;
+        if (minHand) minHand.style.transform = `rotate(${minDeg}deg)`;
+        if (hourHand) hourHand.style.transform = `rotate(${hourDeg}deg)`;
+      }, 1000);
+
+      // CPU & RAM Simulation Jitter
+      setInterval(() => {
+        const cpuVal = Math.floor(22 + Math.random() * 25);
+        const ramVal = Math.floor(42 + Math.random() * 12);
+        
+        const cpuCircle = document.getElementById('cpu-circle');
+        const ramCircle = document.getElementById('ram-circle');
+        
+        if (cpuCircle) cpuCircle.setAttribute('stroke-dasharray', `${cpuVal}, 100`);
+        if (ramCircle) ramCircle.setAttribute('stroke-dasharray', `${ramVal}, 100`);
+
+        document.getElementById('cpu-val').innerText = `${cpuVal}%`;
+        document.getElementById('ram-val').innerText = `${ramVal}%`;
+      }, 2500);
+
+      // Keyboard Shortcut listener (Win+Tab for Flip 3D, Esc to close)
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          document.getElementById('flip3d-overlay').classList.add('hidden');
+          document.getElementById('start-menu').classList.add('hidden');
+        }
+      });
+    };
+  </script>
+</body>
+</html>
